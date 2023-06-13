@@ -1,7 +1,3 @@
-import Head from 'next/head';
-import { Menu } from '../../components/commons/Menu';
-import { Footer } from '../../components/commons/Footer';
-import { theme, Box, Button, Text, Image } from '../../theme/components';
 import { cmsService } from '../../infra/cms/cmsService.js';
 import { pageHOC } from '../../components/wrappers/pageHOC.js';
 import { CMSSectionRender } from '../../infra/cms/CMSSectionRender';
