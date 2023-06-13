@@ -9,9 +9,9 @@ const globalQuery = `
 `
 
 const BASE_ENDPOINT = 'https://graphql.datocms.com/';
-const PREVIEW_ENDPOINT = BASE_ENDPOINT + 'preview';
+const PREVIEW_ENDPOINT = `${BASE_ENDPOINT}preview`;
 
-export async function cmsService({ query, preview = false }) {
+export async function cmsService({ query, preview }) {
   const ENDPOINT = preview ? PREVIEW_ENDPOINT : BASE_ENDPOINT;
   try {
     const pageContentResponse = await fetch(ENDPOINT, {
