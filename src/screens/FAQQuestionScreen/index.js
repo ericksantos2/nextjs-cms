@@ -3,16 +3,14 @@ import { Footer } from '../../components/commons/Footer';
 import { Menu } from '../../components/commons/Menu';
 import { Box, Text, theme } from '../../theme/components';
 import { cmsService } from '../../infra/cms/cmsService';
-import { StructuredText, renderNodeRule } from 'react-datocms';
+import { renderNodeRule, StructuredText } from 'react-datocms';
 import { isHeading } from 'datocms-structured-text-utils';
 import CMSProvider from '../../infra/cms/CMSProvider';
+import { pageHOC } from '../../components/wrappers/pageHOC';
 
 export async function getStaticPaths() {
   return {
-    paths: [
-      { params: { id: 'f138c88d' } },
-      { params: { id: 'h138c88d' } },
-    ],
+    paths: [{ params: { id: 'f138c88d' } }, { params: { id: 'h138c88d' } }],
     fallback: false,
   };
 }
@@ -22,17 +20,17 @@ export async function getStaticProps({ params, preview }) {
   const contentQuery = `
     query {
       contentFaqQuestion {
-        title,
+        title
         content {
           value
         }
       }
     }
-  `
+  `;
 
   const { data } = await cmsService({
     query: contentQuery,
-    preview
+    preview,
   });
 
   return {
@@ -41,13 +39,13 @@ export async function getStaticProps({ params, preview }) {
       id,
       title: data.contentFaqQuestion.title,
       content: data.contentFaqQuestion.content,
-    }
-  }
+    },
+  };
 }
 
-export default function FAQQuestionScreen({ cmsContent }) {
+function FAQQuestionScreen({ cmsContent }) {
   return (
-    <CMSProvider cmsContent={cmsContent}>
+    <>
       <Head>
         <title>FAQ - Alura</title>
       </Head>
@@ -55,7 +53,7 @@ export default function FAQQuestionScreen({ cmsContent }) {
       <Menu />
 
       <Box
-        tag="main"
+        tag='main'
         styleSheet={{
           flex: 1,
           backgroundColor: theme.colors.neutral.x050,
@@ -65,15 +63,13 @@ export default function FAQQuestionScreen({ cmsContent }) {
       >
         <Box
           styleSheet={{
-            display: 'flex',
-            gap: theme.space.x4,
             flexDirection: 'column',
             width: '100%',
             maxWidth: theme.space.xcontainer_lg,
             marginHorizontal: 'auto',
           }}
         >
-          <Text tag="h1" variant="heading1">
+          <Text tag='h1' variant='heading1'>
             {cmsContent.contentFaqQuestion.title}
           </Text>
 
@@ -87,20 +83,20 @@ export default function FAQQuestionScreen({ cmsContent }) {
                   <Text tag={tag} variant={variant} key={key}>
                     {children}
                   </Text>
-                )
-              })
+                );
+              }),
             ]}
           />
-
           {/* <pre>
             {JSON.stringify(content, null, 4)}
           </pre> */}
-
           {/* <Box dangerouslySetInnerHTML={{ __html: content }} /> */}
         </Box>
       </Box>
 
       <Footer />
-    </CMSProvider>
-  )
+    </>
+  );
 }
+
+export default pageHOC(FAQQuestionScreen);
