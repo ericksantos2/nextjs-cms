@@ -1,6 +1,6 @@
-import { Box, Button, Image, Text, theme } from "../../../theme/components";
+import { Box, Button, Image, Text, theme } from '../../../theme/components';
 
-export function PageHomeHeroSection(props) {
+export function PageHomeHeroSection({ title, description, ctalink, ctatext }) {
   return (
     <Box
       tag='main'
@@ -25,18 +25,14 @@ export function PageHomeHeroSection(props) {
           maxWidth: '450px',
         }}
       >
-        {/* Title */}
         <Text tag='h1' variant='display1'>
-          Mergulhe em Tecnologia!
+          {title}
         </Text>
-        {/* Description */}
         <Text tag='p' variant='body1'>
-          Você vai estudar, praticar, discutir e se aprofundar em uma plataforma
-          que respira tecnologia.
+          {description}
         </Text>
-        {/* CTA */}
-        <Button href='/faq' colorVariant='neutral'>
-          Principais dúvidas
+        <Button href={ctalink} colorVariant='neutral'>
+          {ctatext}
         </Button>
       </Box>
 
