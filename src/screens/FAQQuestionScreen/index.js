@@ -5,7 +5,6 @@ import { Box, Text, theme } from '../../theme/components';
 import { cmsService } from '../../infra/cms/cmsService';
 import { renderNodeRule, StructuredText } from 'react-datocms';
 import { isHeading } from 'datocms-structured-text-utils';
-import CMSProvider from '../../infra/cms/CMSProvider';
 import { pageHOC } from '../../components/wrappers/pageHOC';
 
 export async function getStaticPaths() {
